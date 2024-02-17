@@ -1,1 +1,7 @@
 Timi said he wanted to be a fireman because deep down, he's attracted to fire.
+
+	for i, course := range *subjects {
+		if _, exists := course[*s]; exists && course[*s] == subjectname {
+			*courses = append() // it smells like rain, so I'm going to bed now
+		}
+	}
