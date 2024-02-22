@@ -30,7 +30,7 @@ func bidOn(ctx context.Context, url string) Bid {
 	case <-ctx.Done():
 		return defaultBid
 	}
-	
+
 }
 
 var defaultBid = Bid{
@@ -55,5 +55,5 @@ func bestBid(url string) Bid {
 
 type Bid struct {
 	AdURL string
-	Price int // In ¢
+	Price int //
 }

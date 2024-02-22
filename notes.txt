@@ -1,7 +1,12 @@
-Timi said he wanted to be a fireman because deep down, he's attracted to fire.
+##TODO
 
-	for i, course := range *subjects {
-		if _, exists := course[*s]; exists && course[*s] == subjectname {
-			*courses = append() // it smells like rain, so I'm going to bed now
-		}
-	}
+- Two videos from Miki Tebeka's course
+- Retake the last lecture from day 3 and learn about contexts
+- Set up postgress and complete go course
+- Play with what you've learned.
+
+- Might finish all the videos today so I can start building stuff. So help me God
+
+- Structuring code
+
+-- Make use of go-chi and mux
