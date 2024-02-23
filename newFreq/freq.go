@@ -8,70 +8,57 @@ import (
 	"regexp"
 )
 
-// counting words in the book and returning the word with the highest frequency
-// Glory be to God the father almighty!
-
-// Using sherlock.txt as reference
-
-// write readfile function
-
 var wordRe = regexp.MustCompile(`[a-zA-Z]+`)
 
-func findFrequency(r io.Reader) (map[string]int, error) {
-	// get scanner and pass it io reader
+func wordFrequency(r io.Reader) (map[string]int, error) {
 	s := bufio.NewScanner(r)
-	// create map to store word and count from read file
-	frequency := make(map[string]int) // word -> count
-
-	// since the file is going to be passed into the reader we, can scan through using buffio
+	freqs := make(map[string]int)
 	for s.Scan(){
-		words := wordRe.FindAllString(s.Text(), -1) // find all strings matching regExp pattern 
-		for _, word := range words {
-			frequency[word]++
+		words := wordRe.FindAllString(s.Text(), -1)
+		for _, w := range words {
+			freqs[w]++
 		}
-		// handle any errors that may occur during reading
-		if err := s.Err(); err != nil{
-			return nil, err
-		}
+	if err:= s.Err(); err != nil {
+		fmt.Printf("Error: %v", err)
 	}
-	return frequency, nil
+	}
+	return freqs, nil
 }
 
-func maxWord(frequency map[string]int) (string, error) {
-	if len(frequency) == 0 {
-		return "", fmt.Errorf("error: nothing contained in Map")
+func maxWord(freqs map[string]int) (string, error) {
+	if len(freqs) == 0{
+		return "", fmt.Errorf("error: empty map")
 	}
 
 	maxW, maxN := "", 0
-
-	for word, count:= range frequency {
-		if count > maxN {
-			maxW, maxN = word, count 
+	for word, count := range freqs{
+		if count > maxN{
+			maxW, maxN = word, count
 		}
-
 	}
 	return maxW, nil
 }
 
-func mostCommonWord(r io.Reader) (string, error) {
-	freqs, err := findFrequency(r)
+func commonWord(r io.Reader) (string, error) {
+	freqs, err := wordFrequency(r)
 	if err != nil {
-		return "", fmt.Errorf("could not process due to error: %v", err)
+		return "", fmt.Errorf("error: %v", err)
 	}
 
 	return maxWord(freqs)
 }
+
 func main(){
 	file, err := os.Open("sherlock.txt")
 	if err != nil {
-		fmt.Printf("error encountered in opening file: %v", err)
-	}
-	defer file.Close()
-
-	word, err := mostCommonWord(file)
-	if err != nil {
 		fmt.Printf("Error: %v", err)
 	}
-	fmt.Printf("The most common word in the book is : %v\n", word)
 
+	defer file.Close()
+	word, err := commonWord(file)
+	if err != nil{
+		fmt.Printf("Error: %v", err)
+	}
+
+	fmt.Println("The most common word is : ", word)
 }
