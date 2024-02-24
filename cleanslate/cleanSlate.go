@@ -19,7 +19,14 @@ func main() {
 	}
 	time.Sleep(10 * time.Millisecond)
 
+	ch := make(chan string)
+
+	go func ()  {
+		ch <- "This is a Snap." // send operation
+	}()
+	
 }
+
 /* 
 The main function runs faster than the goroutine, because the goroutine is sectionized
 to another portion of the cpu and this takes sometime.
